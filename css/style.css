@@ -123,7 +123,7 @@ button,
     padding: 20px;
     border-radius: 15px;
     margin: 15px 0;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
     transition: 0.3s;
 }
 
@@ -162,7 +162,7 @@ button,
     background: white;
     color: #111;
 
-    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
 
     display: flex;
     flex-direction: column;
@@ -183,7 +183,7 @@ button,
     border-color: var(--primary);
     outline: none;
     transform: scale(1.02);
-    box-shadow: 0 0 10px rgba(220,38,38,0.2);
+    box-shadow: 0 0 10px rgba(220, 38, 38, 0.2);
 }
 
 .switch {
@@ -251,7 +251,7 @@ button,
     padding: 15px 20px;
     display: flex;
     justify-content: space-between;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
 .topbar button {
@@ -327,7 +327,7 @@ button,
     padding: 25px;
     border-radius: 15px;
 
-    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
 }
 
 .register-form h2 {
@@ -420,17 +420,16 @@ button,
     }
 }
 
-    .grid {
-        grid-template-columns: 1fr;
-    }
+.grid {
+    grid-template-columns: 1fr;
+}
 
-    .hero h2 {
-        font-size: 28px;
-    }
+.hero h2 {
+    font-size: 28px;
+}
 
-    .buttons {
-        flex-direction: column;
-    }
+.buttons {
+    flex-direction: column;
 }
 
 /* ================= ANIMATIONS ================= */
@@ -440,6 +439,7 @@ button,
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -450,6 +450,7 @@ button,
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
@@ -474,6 +475,7 @@ button,
 .msg.error {
     background: #dc2626;
 }
+
 .action-btn {
     width: 100%;
     margin-top: 15px;
@@ -491,6 +493,7 @@ button,
     transform: scale(1.05);
     opacity: 0.9;
 }
+
 .input-group {
     display: flex;
     flex-direction: column;
@@ -518,9 +521,10 @@ button,
 .card input:focus,
 .card select:focus {
     border-color: #dc2626;
-    box-shadow: 0 0 0 3px rgba(220,38,38,0.15);
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
     transform: scale(1.01);
 }
+
 /* زرار المود */
 .mode-btn {
     background: #111;
@@ -553,9 +557,11 @@ body.dark .sidebar {
 body.dark .topbar {
     background: #111827;
 }
+
 body.dark .main {
     background: #0f172a;
 }
+
 body.dark input,
 body.dark select {
     background: #0f172a;
@@ -566,12 +572,14 @@ body.dark select {
 body.dark input::placeholder {
     color: #94a3b8;
 }
+
 .thank-msg {
     margin-top: 15px;
     font-size: 16px;
     opacity: 0.8;
     font-style: italic;
 }
+
 /* ================= MENU TOGGLE (Hamburger) ================= */
 .menu-toggle {
     display: none;
@@ -585,7 +593,7 @@ body.dark input::placeholder {
     padding: 8px 15px;
     border-radius: 10px;
     cursor: pointer;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .close-menu {
@@ -599,51 +607,42 @@ body.dark input::placeholder {
 
 /* للشاشات الصغيرة (الموبايل) */
 @media (max-width: 768px) {
+
     /* sidebar بيظهر ويختفي بالـ JS */
-    /* الشكل الأساسي للـ sidebar */
-.sidebar {
-    position: fixed;
-    left: -280px;
-    top: 0;
-    height: 100%;
-    width: 260px;
-    z-index: 1000;
-    transition: 0.3s ease;
-    background: #111827;
-    padding-top: 50px;
+    .sidebar {
+        position: fixed;
+        left: -280px;
+        top: 0;
+        height: 100%;
+        width: 260px;
+        z-index: 1000;
+        transition: 0.3s ease;
+        background: #111827;
+        padding-top: 50px;
+        /* من غير display: none */
+    }
+
+    .sidebar.open {
+        left: 0;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero h2 {
+        font-size: 28px;
+    }
+
+    .buttons {
+        flex-direction: column;
+    }
 }
 
-/* لما يبقى مفتوح */
-.sidebar.open {
-    left: 0;
-}
+/* للشاشات الكبيرة */
+@media (min-width: 769px) {
 
-/* زر القائمة */
-.menu-toggle {
-    display: block;
-    position: fixed;
-    top: 15px;
-    left: 15px;
-    z-index: 1001;
-    background: #dc2626;
-    color: white;
-    font-size: 28px;
-    padding: 8px 15px;
-    border-radius: 10px;
-    cursor: pointer;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-}
-
-/* زر القفل */
-.close-menu {
-    display: block;
-    text-align: right;
-    font-size: 28px;
-    cursor: pointer;
-    color: white;
-    padding: 10px;
-    position: absolute;
-    top: 10px;
-    right: 15px;
-}
+    .close-menu {
+        display: none;
+    }
 }
