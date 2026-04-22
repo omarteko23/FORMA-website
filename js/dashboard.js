@@ -135,7 +135,17 @@ Protein + Veggies
 ${cal} kcal / ${pro}g protein
     `;
 }
-
+// ================= فتح وقفل القائمة الجانبية =================
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    console.log("toggleSidebar clicked", sidebar); // للتأكد
+    if (sidebar) {
+        sidebar.classList.toggle('open');
+        console.log("sidebar classes:", sidebar.className); // للتأكد
+    } else {
+        console.log("sidebar not found!");
+    }
+}
 // ================= Logout =================
 function logout() {
     localStorage.removeItem("user");
