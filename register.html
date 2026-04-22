@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- مهم للموبايل -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Register | FORMA</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="auth-page">
+
+    <!-- LEFT SIDE -->
+    <div class="auth-left">
+        <h1>FORMA</h1>
+        <p>Build your perfect fitness journey with smart tracking</p>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="auth-right">
+
+        <!-- الفورم هو اللي بيشغل الفنكشن -->
+        <form onsubmit="register(event)" class="register-form">
+
+            <h2>Create Account</h2>
+
+            <div class="form-grid">
+
+                <input type="text" id="name" placeholder="Full Name" required>
+                <input type="email" id="email" placeholder="Email" required>
+
+                <input type="password" id="password" placeholder="Password" required>
+                <input type="number" id="age" placeholder="Age" min="10" max="100">
+
+            </div>
+
+            <!-- GENDER -->
+            <div class="gender-box">
+                <label>
+                    <input type="radio" name="gender" value="male" required>
+                    Male
+                </label>
+
+                <label>
+                    <input type="radio" name="gender" value="female">
+                    Female
+                </label>
+            </div>
+
+            <!-- SUBMIT -->
+            <button type="submit">Create Account</button>
+
+            <p class="switch">
+                Already have an account?
+                <a href="login.html">Login</a>
+            </p>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script src="js/auth.js"></script>
+</body>
+</html>
