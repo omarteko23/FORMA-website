@@ -11,18 +11,12 @@ document.getElementById("userInfo").innerHTML = `
 <p>Gender: ${user.gender}</p>
 `;
 
+// التنقل
 function showSection(id) {
     document.querySelectorAll(".section").forEach(sec => {
         sec.classList.remove("active");
     });
     document.getElementById(id).classList.add("active");
-}
-// ================= قفل القائمة بعد الضغط (على كل الأجهزة) =================
-function closeSidebarOnMobile() {
-    const sidebar = document.getElementById('sidebar');
-    if (sidebar) {
-        sidebar.classList.remove('open');
-    }
 }
 
 // ================= Calories =================
@@ -40,10 +34,10 @@ function manualCalories() {
     }
 
     let bmr = g === "female"
-        ? (10*w + 6.25*h - 5*a - 161)
-        : (10*w + 6.25*h - 5*a + 5);
+        ? (10 * w + 6.25 * h - 5 * a - 161)
+        : (10 * w + 6.25 * h - 5 * a + 5);
 
-    const map = { low:1.2, light:1.375, moderate:1.55, high:1.725 };
+    const map = { low: 1.2, light: 1.375, moderate: 1.55, high: 1.725 };
     let cal = bmr * map[act];
 
     if (goal === "lose") cal -= 300;
@@ -59,9 +53,9 @@ function manualProtein() {
 
     if (!w) return alert("Enter weight");
 
-    let p = goal === "gain" ? w*2.2 :
-            goal === "lose" ? w*2 :
-            w*1.8;
+    let p = goal === "gain" ? w * 2.2 :
+        goal === "lose" ? w * 2 :
+            w * 1.8;
 
     proteinResult.innerText = p.toFixed(1) + " g/day";
 }
@@ -72,6 +66,7 @@ function goHome() {
 
     document.getElementById("home").classList.add("active");
 
+    // لو الموبايل → يقفل المنيو
     document.querySelector(".sidebar").classList.remove("show");
 }
 
@@ -135,17 +130,7 @@ Protein + Veggies
 ${cal} kcal / ${pro}g protein
     `;
 }
-// ================= فتح وقفل القائمة الجانبية =================
-function toggleSidebar() {
-    const sidebar = document.getElementById('sidebar');
-    console.log("toggleSidebar clicked", sidebar); // للتأكد
-    if (sidebar) {
-        sidebar.classList.toggle('open');
-        console.log("sidebar classes:", sidebar.className); // للتأكد
-    } else {
-        console.log("sidebar not found!");
-    }
-}
+
 // ================= Logout =================
 function logout() {
     localStorage.removeItem("user");
@@ -165,6 +150,7 @@ function toggleMenu() {
     document.querySelector(".sidebar").classList.toggle("show");
 }
 
+// تشغيل الوضع المحفوظ
 
 window.onload = () => {
     if (localStorage.getItem("mode") === "dark") {
@@ -172,6 +158,7 @@ window.onload = () => {
     }
 };
 
+// 👇 ضيف ده تحتهم
 document.querySelectorAll(".sidebar li").forEach(item => {
     item.addEventListener("click", () => {
         document.querySelector(".sidebar").classList.remove("show");
