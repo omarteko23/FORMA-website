@@ -590,10 +590,7 @@ body.dark input::placeholder {
 
 /* للشاشات الصغيرة (الموبايل) */
 @media (max-width: 768px) {
-    .menu-toggle {
-        display: block;
-    }
-
+    /* sidebar بيظهر ويختفي بالـ JS */
     .sidebar {
         position: fixed;
         left: -280px;
@@ -604,33 +601,28 @@ body.dark input::placeholder {
         transition: 0.3s ease;
         background: #111827;
         padding-top: 50px;
+        /* من غير display: none */
     }
 
     .sidebar.open {
         left: 0;
     }
 
-    .close-menu {
-        display: block;
-        position: absolute;
-        top: 10px;
-        right: 15px;
+    .grid {
+        grid-template-columns: 1fr;
     }
 
-    .main {
-        width: 100%;
+    .hero h2 {
+        font-size: 28px;
     }
 
-    .topbar {
-        padding-left: 60px;
+    .buttons {
+        flex-direction: column;
     }
 }
 
 /* للشاشات الكبيرة */
 @media (min-width: 769px) {
-    .sidebar {
-        display: block !important;
-    }
     
     .close-menu {
         display: none;
