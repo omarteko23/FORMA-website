@@ -136,6 +136,9 @@ function toggleDarkMode() {
         localStorage.setItem("mode", "light");
     }
 }
+function toggleMenu() {
+    document.querySelector(".sidebar").classList.toggle("show");
+}
 
 // تشغيل الوضع المحفوظ
 window.onload = () => {
