@@ -11,7 +11,6 @@ document.getElementById("userInfo").innerHTML = `
 <p>Gender: ${user.gender}</p>
 `;
 
-// التنقل
 function showSection(id) {
     document.querySelectorAll(".section").forEach(sec => {
         sec.classList.remove("active");
@@ -66,7 +65,6 @@ function goHome() {
 
     document.getElementById("home").classList.add("active");
 
-    // لو الموبايل → يقفل المنيو
     document.querySelector(".sidebar").classList.remove("show");
 }
 
@@ -150,7 +148,6 @@ function toggleMenu() {
     document.querySelector(".sidebar").classList.toggle("show");
 }
 
-// تشغيل الوضع المحفوظ
 
 window.onload = () => {
     if (localStorage.getItem("mode") === "dark") {
@@ -158,7 +155,6 @@ window.onload = () => {
     }
 };
 
-// 👇 ضيف ده تحتهم
 document.querySelectorAll(".sidebar li").forEach(item => {
     item.addEventListener("click", () => {
         document.querySelector(".sidebar").classList.remove("show");
