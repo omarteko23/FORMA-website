@@ -141,15 +141,16 @@ function toggleMenu() {
 }
 
 // تشغيل الوضع المحفوظ
+
 window.onload = () => {
     if (localStorage.getItem("mode") === "dark") {
         document.body.classList.add("dark");
     }
-}
-    document.addEventListener("click", (e) => {
-    const sidebar = document.querySelector(".sidebar");
+};
 
-    if (!sidebar.contains(e.target) && !e.target.closest("button")) {
-        sidebar.classList.remove("show");
-    }
+// 👇 ضيف ده تحتهم
+document.querySelectorAll(".sidebar li").forEach(item => {
+    item.addEventListener("click", () => {
+        document.querySelector(".sidebar").classList.remove("show");
+    });
 });
