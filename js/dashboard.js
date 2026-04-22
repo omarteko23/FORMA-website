@@ -17,6 +17,13 @@ function showSection(id) {
     });
     document.getElementById(id).classList.add("active");
 }
+// ================= قفل القائمة بعد الضغط (على كل الأجهزة) =================
+function closeSidebarOnMobile() {
+    const sidebar = document.getElementById('sidebar');
+    if (sidebar) {
+        sidebar.classList.remove('open');
+    }
+}
 
 // ================= Calories =================
 function manualCalories() {
