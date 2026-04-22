@@ -406,10 +406,19 @@ button,
 }
 
 @media (max-width: 768px) {
-
     .sidebar {
-        display: none;
+        position: fixed;
+        left: -250px;
+        top: 0;
+        height: 100%;
+        transition: 0.3s;
+        z-index: 1000;
     }
+
+    .sidebar.show {
+        left: 0;
+    }
+}
 
     .grid {
         grid-template-columns: 1fr;
