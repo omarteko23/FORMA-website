@@ -1,145 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | FORMA</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-<div class="dashboard">
-    <div class="menu-toggle" onclick="toggleSidebar()">☰</div>
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-        <h2 onclick="goHome()" style="cursor:pointer;">FORMA</h2>
 
-        <ul>
-            <li onclick="showSection('home')">Dashboard</li>
-            <li onclick="showSection('calories')">Calories</li>
-            <li onclick="showSection('protein')">Protein</li>
-            <li onclick="showSection('workout')">Workout</li>
-            <li onclick="showSection('meal')">Meal Plan</li>
-        </ul>
-    </aside>
+    <div class="dashboard">
 
-    <!-- MAIN -->
-    <div class="main">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="close-menu" onclick="toggleSidebar()">✕</div>
+            <h2 style="cursor: pointer;" onclick="showSection('home'); closeSidebarOnMobile()">FORMA</h2>
 
-        <!-- TOPBAR -->
-      <div class="topbar">
-    <h3 id="welcomeText"></h3>
-<p class="thank-msg">
-    Thanks for being part of FORMA, Keep pushing your limits!
-</p>
-    <div>
-          <button onclick="toggleDarkMode()" class="mode-btn">🌙 Dark Mode</button>
-          <button onclick="logout()">🚪 Logout</button>
-    </div>
-</div>
+            <ul>
+                <li onclick="showSection('home')">Dashboard</li>
+                <li onclick="showSection('calories')">Calories</li>
+                <li onclick="showSection('protein')">Protein</li>
+                <li onclick="showSection('workout')">Workout</li>
+                <li onclick="showSection('meal')">Meal Plan</li>
+            </ul>
+        </aside>
 
-        <!-- CONTENT -->
-        <div class="content">
+        <!-- MAIN -->
+        <div class="main">
 
-            <!-- HOME -->
-            <section id="home" class="section active">
-                <div class="card">
-                    <div id="userInfo"></div>
+            <!-- TOPBAR -->
+            <div class="topbar">
+                <h3 id="welcomeText"></h3>
+                <p class="thank-msg">
+                    Thanks for being part of FORMA, Keep pushing your limits!
+                </p>
+                <div>
+                    <button onclick="toggleDarkMode()" class="mode-btn">🌙 Dark Mode</button>
+                    <button onclick="logout()">🚪 Logout</button>
+                    <button onclick="toggleMenu()">☰</button>
                 </div>
-            </section>
+            </div>
 
-            <!-- CALORIES -->
-            <section id="calories" class="section">
-                <div class="card">
-                    <h2>Calories Calculator</h2>
+            <!-- CONTENT -->
+            <div class="content">
 
-                    <div class="form-grid">
-                        <input type="number" id="c_weight" placeholder="Weight (kg)">
-                        <input type="number" id="c_height" placeholder="Height (cm)">
-                        <input type="number" id="c_age" placeholder="Age">
+                <!-- HOME -->
+                <section id="home" class="section active">
+                    <div class="card">
+                        <div id="userInfo"></div>
+                    </div>
+                </section>
 
-                        <select id="c_gender">
-                            <option value="" disabled selected>Gender</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                        </select>
+                <!-- CALORIES -->
+                <section id="calories" class="section">
+                    <div class="card">
+                        <h2>Calories Calculator</h2>
 
-                        <select id="c_goal">
+                        <div class="form-grid">
+                            <input type="number" id="c_weight" placeholder="Weight (kg)">
+                            <input type="number" id="c_height" placeholder="Height (cm)">
+                            <input type="number" id="c_age" placeholder="Age">
+
+                            <select id="c_gender">
+                                <option value="" disabled selected>Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+
+                            <select id="c_goal">
+                                <option value="" disabled selected>Goal</option>
+                                <option value="lose">Lose</option>
+                                <option value="gain">Gain</option>
+                                <option value="maintain">Maintain</option>
+                            </select>
+
+                            <select id="c_activity">
+                                <option value="" disabled selected>Activity</option>
+                                <option value="low">Low</option>
+                                <option value="light">Light</option>
+                                <option value="moderate">Moderate</option>
+                                <option value="high">High</option>
+                            </select>
+                        </div>
+
+                        <button class="action-btn" onclick="manualCalories()">Calculate</button>
+                        <p id="calorieResult"></p>
+                    </div>
+                </section>
+
+                <!-- PROTEIN -->
+                <section id="protein" class="section">
+                    <div class="card">
+                        <h2>Protein Calculator</h2>
+
+                        <input type="number" id="p_weight" placeholder="Weight (kg)">
+
+                        <select id="p_goal">
                             <option value="" disabled selected>Goal</option>
                             <option value="lose">Lose</option>
                             <option value="gain">Gain</option>
                             <option value="maintain">Maintain</option>
                         </select>
 
-                        <select id="c_activity">
-                            <option value="" disabled selected>Activity</option>
-                            <option value="low">Low</option>
-                            <option value="light">Light</option>
-                            <option value="moderate">Moderate</option>
-                            <option value="high">High</option>
-                        </select>
+                        <button class="action-btn" onclick="manualProtein()">Calculate</button>
+                        <p id="proteinResult"></p>
                     </div>
+                </section>
 
-                    <button class="action-btn" onclick="manualCalories()">Calculate</button>
-                    <p id="calorieResult"></p>
-                </div>
-            </section>
+                <!-- WORKOUT -->
+                <section id="workout" class="section">
+                    <div class="card">
+                        <h2>Workout Plan</h2>
 
-            <!-- PROTEIN -->
-            <section id="protein" class="section">
-                <div class="card">
-                    <h2>Protein Calculator</h2>
+                        <input type="number" id="w_days" placeholder="Days per week">
 
-                    <input type="number" id="p_weight" placeholder="Weight (kg)">
+                        <select id="w_goal">
+                            <option value="" disabled selected>Goal</option>
+                            <option value="lose">Lose</option>
+                            <option value="gain">Gain</option>
+                            <option value="maintain">Maintain</option>
+                        </select>
 
-                    <select id="p_goal">
-                        <option value="" disabled selected>Goal</option>
-                        <option value="lose">Lose</option>
-                        <option value="gain">Gain</option>
-                        <option value="maintain">Maintain</option>
-                    </select>
+                        <button class="action-btn" onclick="generateWorkout()">Generate</button>
+                        <pre id="workoutResult"></pre>
+                    </div>
+                </section>
 
-                    <button class="action-btn" onclick="manualProtein()">Calculate</button>
-                    <p id="proteinResult"></p>
-                </div>
-            </section>
+                <!-- MEAL -->
+                <section id="meal" class="section">
+                    <div class="card">
+                        <h2>Meal Plan</h2>
 
-            <!-- WORKOUT -->
-            <section id="workout" class="section">
-                <div class="card">
-                    <h2>Workout Plan</h2>
+                        <input type="number" id="m_cal" placeholder="Calories">
+                        <input type="number" id="m_pro" placeholder="Protein (g)">
 
-                    <input type="number" id="w_days" placeholder="Days per week">
+                        <button class="action-btn" onclick="generateMeal()">Generate</button>
+                        <pre id="mealResult"></pre>
+                    </div>
+                </section>
 
-                    <select id="w_goal">
-                        <option value="" disabled selected>Goal</option>
-                        <option value="lose">Lose</option>
-                        <option value="gain">Gain</option>
-                        <option value="maintain">Maintain</option>
-                    </select>
-
-                    <button class="action-btn" onclick="generateWorkout()">Generate</button>
-                    <pre id="workoutResult"></pre>
-                </div>
-            </section>
-
-            <!-- MEAL -->
-            <section id="meal" class="section">
-                <div class="card">
-                    <h2>Meal Plan</h2>
-
-                    <input type="number" id="m_cal" placeholder="Calories">
-                    <input type="number" id="m_pro" placeholder="Protein (g)">
-
-                    <button class="action-btn" onclick="generateMeal()">Generate</button>
-                    <pre id="mealResult"></pre>
-                </div>
-            </section>
-
+            </div>
         </div>
+
     </div>
 
-</div>
-
-<script src="js/dashboard.js"></script>
+    <script src="js/dashboard.js"></script>
 </body>
+
 </html>
