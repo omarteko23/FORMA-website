@@ -1,17 +1,23 @@
+// ================= البيانات من localStorage =================
 const user = JSON.parse(localStorage.getItem("user"));
 
 if (!user) {
     window.location.href = "login.html";
 }
 
-// عرض بيانات المستخدم
+// عرض بيانات المستخدم في الصفحة الرئيسية
 document.getElementById("userInfo").innerHTML = `
-<h2> Welcome ${user.name}</h2>
-<p>Age: ${user.age}</p>
-<p>Gender: ${user.gender}</p>
+    <h2>👋 Welcome ${user.name}</h2>
+    <p>Age: ${user.age}</p>
+    <p>Gender: ${user.gender}</p>
 `;
 
-// التنقل
+// عرض رسالة الترحيب في التوب بار
+if (document.getElementById("welcomeText")) {
+    document.getElementById("welcomeText").innerHTML = `👋 Hello, ${user.name}`;
+}
+
+// ================= التنقل بين الأقسام =================
 function showSection(id) {
     document.querySelectorAll(".section").forEach(sec => {
         sec.classList.remove("active");
@@ -19,114 +25,195 @@ function showSection(id) {
     document.getElementById(id).classList.add("active");
 }
 
-// ================= Calories =================
-function manualCalories() {
-    const w = +c_weight.value;
-    const h = +c_height.value;
-    const a = +c_age.value;
-    const g = c_gender.value;
-    const goal = c_goal.value;
-    const act = c_activity.value;
+// ================= إغلاق القائمة على الموبايل بعد الضغط =================
+function closeSidebarOnMobile() {
+    if (window.innerWidth <= 768) {
+        const sidebar = document.getElementById("sidebar");
+        if (sidebar) {
+            sidebar.classList.remove("open");
+        }
+    }
+}
 
-    if (!w || !h || !a) {
-        alert("Fill all fields");
+// ================= فتح وقفل القائمة الجانبية =================
+function toggleSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    if (sidebar) {
+        sidebar.classList.toggle("open");
+    }
+}
+
+// ================= لو اتغير حجم الشاشة =================
+window.addEventListener("resize", function() {
+    if (window.innerWidth > 768) {
+        const sidebar = document.getElementById("sidebar");
+        if (sidebar) {
+            sidebar.classList.remove("open");
+        }
+    }
+});
+
+// ================= Calories Calculator =================
+function manualCalories() {
+    const w = document.getElementById("c_weight")?.value;
+    const h = document.getElementById("c_height")?.value;
+    const a = document.getElementById("c_age")?.value;
+    const g = document.getElementById("c_gender")?.value;
+    const goal = document.getElementById("c_goal")?.value;
+    const act = document.getElementById("c_activity")?.value;
+
+    if (!w || !h || !a || !g || !goal || !act) {
+        alert("Please fill all fields");
         return;
     }
 
     let bmr = g === "female"
-        ? (10*w + 6.25*h - 5*a - 161)
-        : (10*w + 6.25*h - 5*a + 5);
+        ? (10 * w + 6.25 * h - 5 * a - 161)
+        : (10 * w + 6.25 * h - 5 * a + 5);
 
-    const map = { low:1.2, light:1.375, moderate:1.55, high:1.725 };
-    let cal = bmr * map[act];
+    const activityMap = { low: 1.2, light: 1.375, moderate: 1.55, high: 1.725 };
+    let cal = bmr * activityMap[act];
 
     if (goal === "lose") cal -= 300;
     if (goal === "gain") cal += 300;
 
-    calorieResult.innerText = Math.round(cal) + " kcal/day";
+    const result = document.getElementById("calorieResult");
+    if (result) {
+        result.innerText = Math.round(cal) + " kcal/day";
+    }
 }
 
-// ================= Protein =================
+// ================= Protein Calculator =================
 function manualProtein() {
-    const w = +p_weight.value;
-    const goal = p_goal.value;
+    const w = document.getElementById("p_weight")?.value;
+    const goal = document.getElementById("p_goal")?.value;
 
-    if (!w) return alert("Enter weight");
+    if (!w || !goal) {
+        alert("Please fill all fields");
+        return;
+    }
 
-    let p = goal === "gain" ? w*2.2 :
-            goal === "lose" ? w*2 :
-            w*1.8;
+    let p = goal === "gain" ? w * 2.2 :
+            goal === "lose" ? w * 2 :
+            w * 1.8;
 
-    proteinResult.innerText = p.toFixed(1) + " g/day";
+    const result = document.getElementById("proteinResult");
+    if (result) {
+        result.innerText = p.toFixed(1) + " g/day";
+    }
 }
 
-// ================= Workout =================
+// ================= Workout Generator =================
 function generateWorkout() {
-    const goal = w_goal.value;
-    const days = +w_days.value;
+    const goal = document.getElementById("w_goal")?.value;
+    const days = document.getElementById("w_days")?.value;
+
+    if (!goal || !days) {
+        alert("Please fill all fields");
+        return;
+    }
 
     let plan = "";
 
     if (goal === "gain") {
         plan = `
- Push Day:
-Chest + Shoulders + Triceps
-3 sets × 10 reps
+🏋️ GAIN WORKOUT PLAN (${days} days/week)
 
- Pull Day:
-Back + Biceps
-3 sets × 10 reps
+🔥 Push Day:
+• Bench Press: 3 × 10
+• Shoulder Press: 3 × 12
+• Triceps Dips: 3 × 12
 
-Legs:
-3 sets × 12 reps
+💪 Pull Day:
+• Pull Ups: 3 × 8
+• Barbell Rows: 3 × 10
+• Bicep Curls: 3 × 12
+
+🦵 Leg Day:
+• Squats: 3 × 10
+• Deadlifts: 3 × 8
+• Leg Press: 3 × 12
         `;
-    }
-
-    else if (goal === "lose") {
+    } else if (goal === "lose") {
         plan = `
- Full Body + Cardio
-30 min cardio
-Light weights
-        `;
-    }
+🔥 LOSE WEIGHT PLAN (${days} days/week)
 
-    else {
+🏃‍♂️ Cardio (30 min):
+• Running or Cycling
+
+💪 Full Body Circuit:
+• Push Ups: 3 × 15
+• Bodyweight Squats: 3 × 20
+• Lunges: 3 × 12 each leg
+• Plank: 3 × 30 sec
+
+🥗 Rest between sets: 30-45 sec
+        `;
+    } else {
         plan = `
- Balanced:
-Upper / Lower split
-+ cardio
+⚖️ MAINTAIN PLAN (${days} days/week)
+
+🏋️ Upper Body:
+• Push Ups: 3 × 12
+• Pull Ups: 3 × 8
+• Dips: 3 × 10
+
+🦵 Lower Body:
+• Squats: 3 × 12
+• Lunges: 3 × 10 each leg
+
+❤️ Cardio: 20 min light running
         `;
     }
 
-    workoutResult.innerText = plan;
+    const result = document.getElementById("workoutResult");
+    if (result) {
+        result.innerText = plan;
+    }
 }
 
-// ================= Meal =================
+// ================= Meal Generator =================
 function generateMeal() {
-    const cal = +m_cal.value;
-    const pro = +m_pro.value;
+    const cal = document.getElementById("m_cal")?.value;
+    const pro = document.getElementById("m_pro")?.value;
 
-    mealResult.innerText = `
- Breakfast:
-Eggs + Oats
+    if (!cal || !pro) {
+        alert("Please fill Calories and Protein");
+        return;
+    }
 
- Lunch:
-Chicken + Rice
+    const mealPlan = `
+🥗 YOUR MEAL PLAN
 
- Dinner:
-Protein + Veggies
+🌅 Breakfast:
+• 3 Eggs + Oats with milk
+• Protein: 25g | Calories: ~350
 
- Target:
-${cal} kcal / ${pro}g protein
+🌞 Lunch:
+• 200g Chicken Breast + Rice + Veggies
+• Protein: 45g | Calories: ~550
+
+🌙 Dinner:
+• 150g Fish or Tofu + Salad
+• Protein: 30g | Calories: ~400
+
+🍎 Snack:
+• Greek Yogurt + Nuts
+• Protein: 15g | Calories: ~250
+
+━━━━━━━━━━━━━━━━━━━━
+🎯 TARGETS:
+• Calories: ${cal} kcal/day
+• Protein: ${pro}g/day
     `;
+
+    const result = document.getElementById("mealResult");
+    if (result) {
+        result.innerText = mealPlan;
+    }
 }
 
-// ================= Logout =================
-function logout() {
-    localStorage.removeItem("user");
-    window.location.href = "login.html";
-}
-
+// ================= Dark Mode =================
 function toggleDarkMode() {
     document.body.classList.toggle("dark");
 
@@ -137,7 +224,13 @@ function toggleDarkMode() {
     }
 }
 
-// تشغيل الوضع المحفوظ
+// ================= Logout =================
+function logout() {
+    localStorage.removeItem("user");
+    window.location.href = "login.html";
+}
+
+// ================= تشغيل الوضع المحفوظ عند تحميل الصفحة =================
 window.onload = () => {
     if (localStorage.getItem("mode") === "dark") {
         document.body.classList.add("dark");
