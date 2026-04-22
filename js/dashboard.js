@@ -59,6 +59,16 @@ function manualProtein() {
 
     proteinResult.innerText = p.toFixed(1) + " g/day";
 }
+function goHome() {
+    document.querySelectorAll(".section").forEach(sec => {
+        sec.classList.remove("active");
+    });
+
+    document.getElementById("home").classList.add("active");
+
+    // لو الموبايل → يقفل المنيو
+    document.querySelector(".sidebar").classList.remove("show");
+}
 
 // ================= Workout =================
 function generateWorkout() {
