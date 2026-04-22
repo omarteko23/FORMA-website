@@ -563,3 +563,76 @@ body.dark input::placeholder {
     opacity: 0.8;
     font-style: italic;
 }
+/* ================= MENU TOGGLE (Hamburger) ================= */
+.menu-toggle {
+    display: none;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1001;
+    background: #dc2626;
+    color: white;
+    font-size: 28px;
+    padding: 8px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.close-menu {
+    display: none;
+    text-align: right;
+    font-size: 28px;
+    cursor: pointer;
+    color: white;
+    padding: 10px;
+}
+
+/* للشاشات الصغيرة (الموبايل) */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .sidebar {
+        position: fixed;
+        left: -280px;
+        top: 0;
+        height: 100%;
+        width: 260px;
+        z-index: 1000;
+        transition: 0.3s ease;
+        background: #111827;
+        padding-top: 50px;
+    }
+
+    .sidebar.open {
+        left: 0;
+    }
+
+    .close-menu {
+        display: block;
+        position: absolute;
+        top: 10px;
+        right: 15px;
+    }
+
+    .main {
+        width: 100%;
+    }
+
+    .topbar {
+        padding-left: 60px;
+    }
+}
+
+/* للشاشات الكبيرة */
+@media (min-width: 769px) {
+    .sidebar {
+        display: block !important;
+    }
+    
+    .close-menu {
+        display: none;
+    }
+}
