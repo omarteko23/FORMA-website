@@ -625,6 +625,9 @@ body.dark input::placeholder {
     .sidebar.open {
         left: 0;
     }
+    .sidebar.show {
+    left: 0;
+    }
 
     .grid {
         grid-template-columns: 1fr;
