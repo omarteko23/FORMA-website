@@ -1,134 +1,154 @@
-const user = JSON.parse(localStorage.getItem("user"));
+// ================= لما الصفحة تتحمل بالكامل =================
+document.addEventListener("DOMContentLoaded", function() {
 
-if (!user) {
-    window.location.href = "login.html";
-}
+    // جلب بيانات المستخدم
+    const user = JSON.parse(localStorage.getItem("user"));
 
-// عرض بيانات المستخدم
-document.getElementById("userInfo").innerHTML = `
-<h2> Welcome ${user.name}</h2>
-<p>Age: ${user.age}</p>
-<p>Gender: ${user.gender}</p>
-`;
+    if (!user) {
+        window.location.href = "login.html";
+        return;
+    }
 
-// التنقل
+    // عرض بيانات المستخدم
+    const userInfo = document.getElementById("userInfo");
+    if (userInfo) {
+        userInfo.innerHTML = `
+            <h2>👋 Welcome ${user.name}</h2>
+            <p>Age: ${user.age}</p>
+            <p>Gender: ${user.gender}</p>
+        `;
+    }
+
+    const welcomeText = document.getElementById("welcomeText");
+    if (welcomeText) {
+        welcomeText.innerHTML = `👋 Hello, ${user.name}`;
+    }
+
+    // تشغيل الوضع الداكن المحفوظ
+    if (localStorage.getItem("mode") === "dark") {
+        document.body.classList.add("dark");
+    }
+
+});
+
+// ================= التنقل بين الأقسام =================
 function showSection(id) {
-    document.querySelectorAll(".section").forEach(sec => {
-        sec.classList.remove("active");
-    });
-    document.getElementById(id).classList.add("active");
+    const sections = document.querySelectorAll(".section");
+    sections.forEach(sec => sec.classList.remove("active"));
+    
+    const activeSection = document.getElementById(id);
+    if (activeSection) {
+        activeSection.classList.add("active");
+    }
+    
+    // قفل القائمة على الموبايل
+    closeSidebarOnMobile();
 }
+
+// ================= فتح وقفل القائمة =================
+function toggleSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    if (sidebar) {
+        sidebar.classList.toggle("open");
+    }
+}
+
+// ================= قفل القائمة على الموبايل =================
+function closeSidebarOnMobile() {
+    if (window.innerWidth <= 768) {
+        const sidebar = document.getElementById("sidebar");
+        if (sidebar) {
+            sidebar.classList.remove("open");
+        }
+    }
+}
+
+// ================= لو اتغير حجم الشاشة =================
+window.addEventListener("resize", function() {
+    if (window.innerWidth > 768) {
+        const sidebar = document.getElementById("sidebar");
+        if (sidebar) {
+            sidebar.classList.remove("open");
+        }
+    }
+});
 
 // ================= Calories =================
 function manualCalories() {
-    const w = +c_weight.value;
-    const h = +c_height.value;
-    const a = +c_age.value;
-    const g = c_gender.value;
-    const goal = c_goal.value;
-    const act = c_activity.value;
+    const w = document.getElementById("c_weight")?.value;
+    const h = document.getElementById("c_height")?.value;
+    const a = document.getElementById("c_age")?.value;
+    const g = document.getElementById("c_gender")?.value;
+    const goal = document.getElementById("c_goal")?.value;
+    const act = document.getElementById("c_activity")?.value;
 
-    if (!w || !h || !a) {
+    if (!w || !h || !a || !g || !goal || !act) {
         alert("Fill all fields");
         return;
     }
 
-    let bmr = g === "female"
-        ? (10 * w + 6.25 * h - 5 * a - 161)
-        : (10 * w + 6.25 * h - 5 * a + 5);
-
-    const map = { low: 1.2, light: 1.375, moderate: 1.55, high: 1.725 };
+    let bmr = g === "female" ? (10*w + 6.25*h - 5*a - 161) : (10*w + 6.25*h - 5*a + 5);
+    const map = { low:1.2, light:1.375, moderate:1.55, high:1.725 };
     let cal = bmr * map[act];
 
     if (goal === "lose") cal -= 300;
     if (goal === "gain") cal += 300;
 
-    calorieResult.innerText = Math.round(cal) + " kcal/day";
+    const result = document.getElementById("calorieResult");
+    if (result) result.innerText = Math.round(cal) + " kcal/day";
 }
 
 // ================= Protein =================
 function manualProtein() {
-    const w = +p_weight.value;
-    const goal = p_goal.value;
+    const w = document.getElementById("p_weight")?.value;
+    const goal = document.getElementById("p_goal")?.value;
 
-    if (!w) return alert("Enter weight");
+    if (!w || !goal) {
+        alert("Enter weight and goal");
+        return;
+    }
 
-    let p = goal === "gain" ? w * 2.2 :
-        goal === "lose" ? w * 2 :
-            w * 1.8;
-
-    proteinResult.innerText = p.toFixed(1) + " g/day";
-}
-function goHome() {
-    document.querySelectorAll(".section").forEach(sec => {
-        sec.classList.remove("active");
-    });
-
-    document.getElementById("home").classList.add("active");
-
-    // لو الموبايل → يقفل المنيو
-    document.querySelector(".sidebar").classList.remove("show");
+    let p = goal === "gain" ? w*2.2 : goal === "lose" ? w*2 : w*1.8;
+    const result = document.getElementById("proteinResult");
+    if (result) result.innerText = p.toFixed(1) + " g/day";
 }
 
 // ================= Workout =================
 function generateWorkout() {
-    const goal = w_goal.value;
-    const days = +w_days.value;
+    const goal = document.getElementById("w_goal")?.value;
+    const days = document.getElementById("w_days")?.value;
 
-    let plan = "";
-
-    if (goal === "gain") {
-        plan = `
- Push Day:
-Chest + Shoulders + Triceps
-3 sets × 10 reps
-
- Pull Day:
-Back + Biceps
-3 sets × 10 reps
-
-Legs:
-3 sets × 12 reps
-        `;
+    if (!goal || !days) {
+        alert("Fill days and goal");
+        return;
     }
 
-    else if (goal === "lose") {
-        plan = `
- Full Body + Cardio
-30 min cardio
-Light weights
-        `;
-    }
+    let plan = goal === "gain" ? "Push/Pull/Legs - 3 sets x 10 reps" :
+               goal === "lose" ? "Cardio + Full Body Circuit" :
+               "Upper/Lower split + cardio";
 
-    else {
-        plan = `
- Balanced:
-Upper / Lower split
-+ cardio
-        `;
-    }
-
-    workoutResult.innerText = plan;
+    const result = document.getElementById("workoutResult");
+    if (result) result.innerText = plan;
 }
 
 // ================= Meal =================
 function generateMeal() {
-    const cal = +m_cal.value;
-    const pro = +m_pro.value;
+    const cal = document.getElementById("m_cal")?.value;
+    const pro = document.getElementById("m_pro")?.value;
 
-    mealResult.innerText = `
- Breakfast:
-Eggs + Oats
+    if (!cal || !pro) {
+        alert("Fill calories and protein");
+        return;
+    }
 
- Lunch:
-Chicken + Rice
+    const result = document.getElementById("mealResult");
+    if (result) result.innerText = `Breakfast: Eggs + Oats\nLunch: Chicken + Rice\nDinner: Protein + Veggies\nTarget: ${cal} kcal / ${pro}g protein`;
+}
 
- Dinner:
-Protein + Veggies
-
- Target:
-${cal} kcal / ${pro}g protein
-    `;
+// ================= Dark Mode =================
+function toggleDarkMode() {
+    document.body.classList.toggle("dark");
+    localStorage.setItem("mode", document.body.classList.contains("dark") ? "dark" : "light");
 }
 
 // ================= Logout =================
@@ -136,41 +156,3 @@ function logout() {
     localStorage.removeItem("user");
     window.location.href = "login.html";
 }
-
-function toggleDarkMode() {
-    document.body.classList.toggle("dark");
-
-    if (document.body.classList.contains("dark")) {
-        localStorage.setItem("mode", "dark");
-    } else {
-        localStorage.setItem("mode", "light");
-    }
-}
-function toggleMenu() {
-    document.querySelector(".sidebar").classList.toggle("show");
-}
-
-// تشغيل الوضع المحفوظ
-// ================= إغلاق القائمة من زر الاكس =================
-const closeBtn = document.getElementById('closeMenuBtn');
-if (closeBtn) {
-    closeBtn.addEventListener('click', function() {
-        const sidebar = document.getElementById('sidebar');
-        if (sidebar) {
-            sidebar.classList.remove('open');
-            console.log('Closed sidebar');
-        }
-    });
-}
-window.onload = () => {
-    if (localStorage.getItem("mode") === "dark") {
-        document.body.classList.add("dark");
-    }
-};
-
-// 👇 ضيف ده تحتهم
-document.querySelectorAll(".sidebar li").forEach(item => {
-    item.addEventListener("click", () => {
-        document.querySelector(".sidebar").classList.remove("show");
-    });
-});
