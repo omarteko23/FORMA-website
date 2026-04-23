@@ -147,22 +147,7 @@ function toggleDarkMode() {
     }
 }
 function toggleMenu() {
-    const sidebar = document.querySelector(".sidebar");
-    sidebar.classList.toggle("open");  // غير من show إلى open
-}
-function closeSidebar() {
-    const sidebar = document.querySelector(".sidebar");
-    if (sidebar) {
-        sidebar.classList.remove("open");
-    }
-}
-
-// واربط زر الاكس
-const closeBtn = document.getElementById('closeSidebarBtn');
-if (closeBtn) {
-    closeBtn.onclick = function() {
-        closeSidebar();
-    };
+    document.querySelector(".sidebar").classList.toggle("show");
 }
 
 // تشغيل الوضع المحفوظ
@@ -176,6 +161,6 @@ window.onload = () => {
 // 👇 ضيف ده تحتهم
 document.querySelectorAll(".sidebar li").forEach(item => {
     item.addEventListener("click", () => {
-        document.querySelector(".sidebar").classList.remove("open"); // غير من show إلى open
+        document.querySelector(".sidebar").classList.remove("show");
     });
 });
