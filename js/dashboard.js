@@ -151,7 +151,17 @@ function toggleMenu() {
 }
 
 // تشغيل الوضع المحفوظ
-
+// ================= إغلاق القائمة من زر الاكس =================
+const closeBtn = document.getElementById('closeMenuBtn');
+if (closeBtn) {
+    closeBtn.addEventListener('click', function() {
+        const sidebar = document.getElementById('sidebar');
+        if (sidebar) {
+            sidebar.classList.remove('open');
+            console.log('Closed sidebar');
+        }
+    });
+}
 window.onload = () => {
     if (localStorage.getItem("mode") === "dark") {
         document.body.classList.add("dark");
