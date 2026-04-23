@@ -642,6 +642,16 @@ body.dark input::placeholder {
     }
 }
 
-/* للشاشات الكبيرة */
+.close-menu {
+    display: block;
+    text-align: right;
+    font-size: 28px;
+    cursor: pointer;
+    color: white;
+    padding: 10px;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+}
 
 }
