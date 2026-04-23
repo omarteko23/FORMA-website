@@ -13,18 +13,17 @@
     <div class="dashboard">
 
         <!-- SIDEBAR -->
-        <aside class="sidebar">
-            <div class="close-menu" onclick="toggleSidebar()">✕</div>
-            <h2 style="cursor: pointer;" onclick="showSection('home'); closeSidebarOnMobile()">FORMA</h2>
-
-            <ul>
-                <li onclick="showSection('home')">Dashboard</li>
-                <li onclick="showSection('calories')">Calories</li>
-                <li onclick="showSection('protein')">Protein</li>
-                <li onclick="showSection('workout')">Workout</li>
-                <li onclick="showSection('meal')">Meal Plan</li>
-            </ul>
-        </aside>
+       <aside class="sidebar" id="sidebar">
+    <div class="close-menu" id="closeSidebarBtn">✕</div>
+    <h2 onclick="showSection('home'); closeSidebar()">FORMA</h2>
+    <ul>
+        <li onclick="showSection('home'); closeSidebar()">📊 Dashboard</li>
+        <li onclick="showSection('calories'); closeSidebar()">🔥 Calories</li>
+        <li onclick="showSection('protein'); closeSidebar()">💪 Protein</li>
+        <li onclick="showSection('workout'); closeSidebar()">🏋️ Workout</li>
+        <li onclick="showSection('meal'); closeSidebar()">🍽️ Meal Plan</li>
+    </ul>
+</aside>
 
         <!-- MAIN -->
         <div class="main">
