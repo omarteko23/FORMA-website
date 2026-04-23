@@ -150,6 +150,20 @@ function toggleMenu() {
     const sidebar = document.querySelector(".sidebar");
     sidebar.classList.toggle("open");  // غير من show إلى open
 }
+function closeSidebar() {
+    const sidebar = document.querySelector(".sidebar");
+    if (sidebar) {
+        sidebar.classList.remove("open");
+    }
+}
+
+// واربط زر الاكس
+const closeBtn = document.getElementById('closeSidebarBtn');
+if (closeBtn) {
+    closeBtn.onclick = function() {
+        closeSidebar();
+    };
+}
 
 // تشغيل الوضع المحفوظ
 
