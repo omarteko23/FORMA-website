@@ -643,9 +643,5 @@ body.dark input::placeholder {
 }
 
 /* للشاشات الكبيرة */
-@media (min-width: 769px) {
 
-    .close-menu {
-        display: none;
-    }
 }
