@@ -147,7 +147,8 @@ function toggleDarkMode() {
     }
 }
 function toggleMenu() {
-    document.querySelector(".sidebar").classList.toggle("show");
+    const sidebar = document.querySelector(".sidebar");
+    sidebar.classList.toggle("open");  // غير من show إلى open
 }
 
 // تشغيل الوضع المحفوظ
@@ -161,6 +162,6 @@ window.onload = () => {
 // 👇 ضيف ده تحتهم
 document.querySelectorAll(".sidebar li").forEach(item => {
     item.addEventListener("click", () => {
-        document.querySelector(".sidebar").classList.remove("show");
+        document.querySelector(".sidebar").classList.remove("open"); // غير من show إلى open
     });
 });
